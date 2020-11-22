@@ -1,0 +1,37 @@
+.flex-row {
+  display: flex;
+  padding: 20px 50px;
+
+  .octave-switcher {
+    font-size: 18px;
+    color: #e2831f;
+    user-select: none;
+
+    fa-icon {
+      cursor: pointer;
+      &:hover {
+        color: rgba(#e2831f, 0.5);
+      }
+    }
+
+    span {
+      margin: 0 10px;
+    }
+  }
+}
+
+.keyboard-wrapper {
+  height: 280px;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  .scrollable-keyboard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #bfc2c4;
+    transition: transform 0.5s ease-out;
+  }
+}

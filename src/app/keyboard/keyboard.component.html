@@ -1,0 +1,33 @@
+<div class="flex-row">
+  <div class="octave-switcher">
+    <fa-icon [icon]="faChevronLeft" (click)="translateLeft()"></fa-icon>
+    <span>Octave</span>
+    <fa-icon [icon]="faChevronRight" (click)="translateRight()"></fa-icon>
+  </div>
+</div>
+<div class="keyboard-wrapper">
+  <div
+    class="scrollable-keyboard"
+    [ngStyle]="{
+      width: whiteKeys.length * 68 + 'px',
+      transform: 'translateX(' + -translateX + 'px)'
+    }"
+  >
+    <div class="white-keys">
+      <app-key
+        *ngFor="let key of whiteKeys; index as i"
+        [key]="key"
+        [left]="68 * i"
+        type="white"
+      ></app-key>
+    </div>
+    <div class="black-keys">
+      <app-key
+        *ngFor="let key of blackKeys; index as i"
+        [key]="key"
+        [left]="68 * i + 46"
+        type="black"
+      ></app-key>
+    </div>
+  </div>
+</div>
