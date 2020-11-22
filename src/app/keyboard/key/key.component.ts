@@ -20,7 +20,7 @@ export class KeyComponent implements OnInit {
   private node?: OscillatorNode;
 
   constructor(
-    private elementRef: ElementRef,
+    public elementRef: ElementRef,
     private audioService: AudioService
   ) {}
 
@@ -28,13 +28,13 @@ export class KeyComponent implements OnInit {
     this.handleMouseEvents();
   }
 
-  private pressDown() {
+  pressDown() {
     if (this.pressed || !this.key) return;
     this.pressed = true;
     this.node = this.audioService.play(this.key);
   }
 
-  private liftUp() {
+  liftUp() {
     if (!this.pressed) return;
     this.pressed = false;
     this.node?.stop();
