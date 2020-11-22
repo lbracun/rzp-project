@@ -1,4 +1,10 @@
-export const NOTE_FREQUIENCIES = [
+export interface Key {
+  octave: number;
+  note: string;
+  frequency: number;
+}
+
+export const NOTE_FREQUIENCIES: Key[] = [
   {
     octave: 0,
     note: 'A',

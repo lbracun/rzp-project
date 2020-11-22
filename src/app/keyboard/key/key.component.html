@@ -1,3 +1,9 @@
-<div *ngIf="key" class="key" [ngClass]="type" [ngStyle]="{ left: left + 'px' }">
+<div
+  *ngIf="key"
+  class="key"
+  [class.pressed]="pressed"
+  [ngClass]="type"
+  [ngStyle]="{ left: left + 'px' }"
+>
   <span *ngIf="key?.note === 'C'" class="key-mark">C{{ key?.octave }}</span>
 </div>
