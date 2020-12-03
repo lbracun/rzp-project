@@ -3,7 +3,7 @@ import { fromEvent, merge } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AudioService } from '../../services/audio.service';
-import { Key } from '../note-frequencies';
+import { Note } from '../notes';
 
 @Component({
   selector: 'app-key',
@@ -11,7 +11,7 @@ import { Key } from '../note-frequencies';
   styleUrls: ['./key.component.scss'],
 })
 export class KeyComponent implements OnInit {
-  @Input() key?: Key | null;
+  @Input() key?: Note | null;
   @Input() type: 'white' | 'black' = 'white';
   @Input() left: number = 0;
 

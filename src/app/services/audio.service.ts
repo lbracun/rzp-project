@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Key } from '../keyboard/note-frequencies';
+import { Note } from '../keyboard/notes';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +24,11 @@ export class AudioService {
     );
   }
 
-  play(key: Key) {
+  play(key: Note) {
     const osc = this.audioContext.createOscillator();
     osc.connect(this.masterGainNode);
 
-    osc.frequency.value = key.frequency;
+    osc.frequency.value = Math.pow(2, (key.number - 69) / 12) * 440;
     osc.start();
     return osc;
   }

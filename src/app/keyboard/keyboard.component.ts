@@ -3,7 +3,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { fromEvent } from 'rxjs';
 
 import { KeyComponent } from './key/key.component';
-import { NOTE_FREQUIENCIES } from './note-frequencies';
+import { NOTES } from './notes';
 
 @Component({
   selector: 'app-keyboard',
@@ -14,10 +14,10 @@ export class KeyboardComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
 
-  whiteKeys = NOTE_FREQUIENCIES.filter((key) => !key.note.includes('#'));
+  whiteKeys = NOTES.filter((key) => !key.note.includes('#'));
   blackKeys = this.constructBlackKeys();
 
-  translateX = 3 * 7 * 68;
+  translateX = 4 * 7 * 68;
 
   whiteKeyCodes = [
     'KeyZ',
@@ -32,7 +32,7 @@ export class KeyboardComponent implements OnInit {
     'Slash',
   ];
 
-  blackKeyCodes = ['KeyS', 'KeyF', 'KeyG', 'KeyJ', 'KeyK', 'KeyL', 'Quote'];
+  blackKeyCodes = ['KeyS', 'KeyD', 'KeyG', 'KeyH', 'KeyJ', 'KeyL', 'Quote'];
 
   @ViewChildren(KeyComponent) private keyComponents?: QueryList<KeyComponent>;
 
@@ -63,9 +63,7 @@ export class KeyboardComponent implements OnInit {
 
   private constructBlackKeys() {
     const bk = [];
-    for (const key of NOTE_FREQUIENCIES.filter((key) =>
-      key.note.includes('#')
-    )) {
+    for (const key of NOTES.filter((key) => key.note.includes('#'))) {
       bk.push(key);
       if (['A#', 'D#'].includes(key.note)) bk.push(null);
     }
@@ -85,6 +83,8 @@ export class KeyboardComponent implements OnInit {
         const blackKeys = this.getKeys().filter((key) => key.type === 'black');
         return blackKeys[blackIndex];
       }
+
+      return null;
     };
 
     const handleKey = (code: string, down: boolean) => {
