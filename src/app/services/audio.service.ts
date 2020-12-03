@@ -36,7 +36,8 @@ export class AudioService {
     osc.setPeriodicWave(this.customWaveform);
     osc.connect(this.masterGainNode);
 
-    osc.frequency.value = Math.pow(2, (key.number - 69) / 12) * 440;
+    const frequency = Math.pow(2, (key.number - 69) / 12) * 440;
+    osc.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
     osc.start();
     return osc;
   }

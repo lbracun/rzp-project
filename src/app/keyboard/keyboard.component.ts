@@ -20,19 +20,29 @@ export class KeyboardComponent implements OnInit {
   translateX = 4 * 7 * 68;
 
   whiteKeyCodes = [
-    'KeyZ',
-    'KeyX',
-    'KeyC',
-    'KeyV',
-    'KeyB',
-    'KeyN',
-    'KeyM',
-    'Comma',
-    'Period',
-    'Slash',
+    { code: 'KeyZ', char: 'Y' },
+    { code: 'KeyX', char: 'X' },
+    { code: 'KeyC', char: 'C' },
+    { code: 'KeyV', char: 'V' },
+    { code: 'KeyB', char: 'B' },
+    { code: 'KeyN', char: 'N' },
+    { code: 'KeyM', char: 'M' },
+    { code: 'Comma', char: ',' },
+    { code: 'Period', char: '.' },
+    { code: 'Slash', char: '-' },
   ];
 
-  blackKeyCodes = ['KeyS', 'KeyD', 'KeyG', 'KeyH', 'KeyJ', 'KeyL', 'Quote'];
+  blackKeyCodes = [
+    { code: 'KeyS', char: 'S' },
+    { code: 'KeyD', char: 'D' },
+    null,
+    { code: 'KeyG', char: 'G' },
+    { code: 'KeyH', char: 'H' },
+    { code: 'KeyJ', char: 'J' },
+    null,
+    { code: 'KeyL', char: 'L' },
+    { code: 'Quote', char: 'Č' },
+  ];
 
   @ViewChildren(KeyComponent) private keyComponents?: QueryList<KeyComponent>;
 
@@ -72,8 +82,13 @@ export class KeyboardComponent implements OnInit {
 
   private handleKeyPress() {
     const getKeyComponent = (code: string) => {
-      const whiteIndex = this.whiteKeyCodes.indexOf(code);
-      const blackIndex = this.blackKeyCodes.indexOf(code);
+      const whiteIndex = this.whiteKeyCodes
+        .map(({ code }) => code)
+        .indexOf(code);
+      const blackIndex = this.blackKeyCodes
+        .filter((x) => !!x)
+        .map(({ code }: any) => code)
+        .indexOf(code);
 
       if (whiteIndex > -1) {
         const whiteKeys = this.getKeys().filter((key) => key.type === 'white');

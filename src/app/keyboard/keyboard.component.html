@@ -30,4 +30,23 @@
       ></app-key>
     </div>
   </div>
+
+  <div
+    class="key-char white"
+    *ngFor="let key of whiteKeyCodes; index as i"
+    [ngStyle]="{ transform: 'translateX(' + (68 * i + 22) + 'px)' }"
+  >
+    <span>{{ key.char }}</span>
+  </div>
+
+  <div
+    class="key-char black"
+    *ngFor="let key of blackKeyCodes; index as i"
+    [ngStyle]="{
+      transform: 'translateX(' + (68 * i + 54) + 'px)',
+      display: key ? 'flex' : 'none'
+    }"
+  >
+    <span *ngIf="key">{{ key.char }}</span>
+  </div>
 </div>

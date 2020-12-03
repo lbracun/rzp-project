@@ -34,4 +34,29 @@
     background: #bfc2c4;
     transition: transform 0.5s ease-out;
   }
+
+  .key-char {
+    position: absolute;
+    width: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    border: 1px solid rgba(black, 0.25);
+    border-radius: 6px;
+    user-select: none;
+    pointer-events: none;
+    color: rgba(black, 0.46);
+
+    &.white {
+      bottom: 20px;
+      border-bottom-width: 2px;
+    }
+
+    &.black {
+      top: 95px;
+      color: rgba(white, 0.9);
+      border-color: rgba(white, 0.5);
+    }
+  }
 }
