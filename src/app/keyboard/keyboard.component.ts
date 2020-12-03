@@ -30,6 +30,18 @@ export class KeyboardComponent implements OnInit {
     { code: 'Comma', char: ',' },
     { code: 'Period', char: '.' },
     { code: 'Slash', char: '-' },
+    { code: 'KeyQ', char: 'Q' },
+    { code: 'KeyW', char: 'W' },
+    { code: 'KeyE', char: 'E' },
+    { code: 'KeyR', char: 'R' },
+    { code: 'KeyT', char: 'T' },
+    { code: 'KeyY', char: 'Z' },
+    { code: 'KeyU', char: 'U' },
+    { code: 'KeyI', char: 'I' },
+    { code: 'KeyO', char: 'O' },
+    { code: 'KeyP', char: 'P' },
+    { code: 'BracketLeft', char: 'Š' },
+    { code: 'BracketRight', char: 'Đ' },
   ];
 
   blackKeyCodes = [
@@ -42,6 +54,17 @@ export class KeyboardComponent implements OnInit {
     null,
     { code: 'KeyL', char: 'L' },
     { code: 'Quote', char: 'Č' },
+    null,
+    { code: 'Digit2', char: '2' },
+    { code: 'Digit3', char: '3' },
+    { code: 'Digit4', char: '4' },
+    null,
+    { code: 'Digit6', char: '6' },
+    { code: 'Digit7', char: '7' },
+    null,
+    { code: 'Digit9', char: '9' },
+    { code: 'Digit0', char: '0' },
+    { code: 'Minus', char: "'" },
   ];
 
   @ViewChildren(KeyComponent) private keyComponents?: QueryList<KeyComponent>;
@@ -109,6 +132,7 @@ export class KeyboardComponent implements OnInit {
     };
 
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((key) => {
+      console.log(key.code);
       handleKey(key.code, true);
     });
 

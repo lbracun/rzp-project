@@ -31,6 +31,7 @@ export class AudioService {
     this.updateGain();
     osc.onended = () => {
       this.oscilators--;
+      osc.disconnect();
       this.updateGain();
     };
     osc.setPeriodicWave(this.customWaveform);
