@@ -19,5 +19,5 @@ export const NOTES = [
 export interface Note {
   note: string;
   number: number;
-  octave: string;
+  octave: number;
 }
