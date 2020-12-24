@@ -1,0 +1,27 @@
+<div class="tracks-container">
+  <div class="tracks-title">Tracks</div>
+
+  <div class="left-panel">
+    <div
+      class="track-title"
+      [class.selected]="track.selected"
+      *ngFor="let track of tracks; index as i"
+      (click)="select(track)"
+    >
+      <span>Track {{ i + 1 }}</span>
+    </div>
+
+    <div class="track-title new-track" (click)="addNewTrack()">
+      <div>+</div>
+      <span>Add New Track</span>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div
+      class="track"
+      [class.selected]="track.selected"
+      *ngFor="let track of tracks"
+    ></div>
+  </div>
+</div>

@@ -5,12 +5,16 @@ import { AppComponent } from './app.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { KeyComponent } from './keyboard/key/key.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeaderComponent } from './header/header.component';
+import { TracksComponent } from './tracks/tracks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     KeyboardComponent,
-    KeyComponent
+    KeyComponent,
+    HeaderComponent,
+    TracksComponent
   ],
   imports: [
     BrowserModule,
