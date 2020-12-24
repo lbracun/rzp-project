@@ -53,7 +53,7 @@ export class KeyboardComponent implements OnInit {
     { code: 'KeyJ', char: 'J' },
     null,
     { code: 'KeyL', char: 'L' },
-    { code: 'Quote', char: 'Č' },
+    { code: 'Semicolon', char: 'Č' },
     null,
     { code: 'Digit2', char: '2' },
     { code: 'Digit3', char: '3' },

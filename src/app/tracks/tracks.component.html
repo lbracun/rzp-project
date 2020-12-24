@@ -22,6 +22,14 @@
       class="track"
       [class.selected]="track.selected"
       *ngFor="let track of tracks"
-    ></div>
+    >
+      <div
+        *ngIf="track.audio"
+        class="audio-track"
+        [ngStyle]="{
+          width: track.audio.duration * 30 + 'px'
+        }"
+      ></div>
+    </div>
   </div>
 </div>

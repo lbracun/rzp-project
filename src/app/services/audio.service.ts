@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Note } from '../keyboard/notes';
 
+declare const MediaRecorder: any;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -45,5 +47,11 @@ export class AudioService {
 
   private updateGain() {
     this.masterGainNode.gain.value = 1 / (this.oscilators || 1);
+  }
+
+  getRecorder() {
+    const mediaStream = this.audioContext.createMediaStreamDestination();
+    this.masterGainNode.connect(mediaStream);
+    return new MediaRecorder(mediaStream.stream);
   }
 }

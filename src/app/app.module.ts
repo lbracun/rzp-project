@@ -7,6 +7,7 @@ import { KeyComponent } from './keyboard/key/key.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './header/header.component';
 import { TracksComponent } from './tracks/tracks.component';
+import { ControlsRowComponent } from './controls-row/controls-row.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TracksComponent } from './tracks/tracks.component';
     KeyboardComponent,
     KeyComponent,
     HeaderComponent,
-    TracksComponent
+    TracksComponent,
+    ControlsRowComponent
   ],
   imports: [
     BrowserModule,
