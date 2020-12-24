@@ -33,7 +33,19 @@ export class TracksComponent implements OnInit, OnDestroy {
         const selectedTrack = this.tracks.find((t) => t.selected);
         if (selectedTrack) selectedTrack.audio = audio;
 
-        console.log(audio);
+        const audios = this.tracks
+          .filter((t) => t.audio)
+          .map((t) => t.audio) as HTMLAudioElement[];
+
+        audios.forEach((audio) => {
+          audio.volume = 1 / audios.length;
+        });
+      });
+
+    this.sharedDataService.play$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.playAll();
       });
   }
 
@@ -57,5 +69,11 @@ export class TracksComponent implements OnInit, OnDestroy {
     });
 
     track.selected = true;
+  }
+
+  playAll() {
+    this.tracks.forEach((track) => {
+      track.audio?.play();
+    });
   }
 }

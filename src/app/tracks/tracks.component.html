@@ -8,7 +8,21 @@
       *ngFor="let track of tracks; index as i"
       (click)="select(track)"
     >
-      <span>Track {{ i + 1 }}</span>
+      <div>
+        <span>Track {{ i + 1 }}</span>
+        <div class="controls-row" *ngIf="track.audio">
+          <div
+            *ngIf="track.audio.paused"
+            class="play-btn"
+            (click)="$event.stopPropagation(); track.audio.play()"
+          ></div>
+          <div
+            *ngIf="!track.audio.paused"
+            class="pause-btn"
+            (click)="$event.stopPropagation(); track.audio.pause()"
+          ></div>
+        </div>
+      </div>
     </div>
 
     <div class="track-title new-track" (click)="addNewTrack()">

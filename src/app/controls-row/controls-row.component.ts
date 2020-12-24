@@ -36,4 +36,8 @@ export class ControlsRowComponent implements OnInit {
 
     this.recording = !this.recording;
   }
+
+  play() {
+    this.sharedDataService.play$.next();
+  }
 }

@@ -39,6 +39,39 @@
       &:hover {
         background: white;
       }
+
+      .controls-row {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        height: 30px;
+
+        .play-btn {
+          margin: 0 5px;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-left: 12px solid #555;
+          border-bottom: 7px solid transparent;
+
+          &:hover {
+            border-left-color: #e2831f;
+          }
+        }
+
+        .pause-btn {
+          margin: 0 5px;
+          height: 12px;
+          width: 12px;
+          background: linear-gradient(
+            90deg,
+            #555 33%,
+            #fff 33%,
+            #fff 66%,
+            #555 66%
+          );
+        }
+      }
     }
   }
 

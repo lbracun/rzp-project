@@ -6,4 +6,5 @@ import { Subject } from 'rxjs';
 })
 export class SharedDataService {
   recordingComplete$ = new Subject<HTMLAudioElement>();
+  play$ = new Subject();
 }
