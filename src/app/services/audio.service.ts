@@ -10,13 +10,17 @@ declare const MediaRecorder: any;
 export class AudioService {
   private audioContext: AudioContext;
   private masterGainNode: GainNode;
+  private finalNode: GainNode;
   private customWaveform: PeriodicWave;
   private oscilators = 0;
 
   constructor() {
     this.audioContext = new AudioContext();
+    this.finalNode = this.audioContext.createGain();
+    this.finalNode.connect(this.audioContext.destination);
+
     this.masterGainNode = this.audioContext.createGain();
-    this.masterGainNode.connect(this.audioContext.destination);
+    this.masterGainNode.connect(this.finalNode);
     this.masterGainNode.gain.value = 1;
 
     const sineTerms = new Float32Array([0, 0, 1, 0, 1]);
@@ -51,7 +55,7 @@ export class AudioService {
 
   getRecorder() {
     const mediaStream = this.audioContext.createMediaStreamDestination();
-    this.masterGainNode.connect(mediaStream);
+    this.finalNode.connect(mediaStream);
     return new MediaRecorder(mediaStream.stream);
   }
 
@@ -104,9 +108,9 @@ export class AudioService {
 
     this.overdriveGain = this.audioContext.createGain();
     this.overdriveGain.gain.value = 20;
-    this.overdriveGain.connect(this.overdriveShaper);
-    this.overdriveShaper.connect(this.audioContext.destination);
     this.masterGainNode.connect(this.overdriveGain);
+    this.overdriveGain.connect(this.overdriveShaper);
+    this.overdriveShaper.connect(this.finalNode);
   }
 
   toggleOverdrive() {
