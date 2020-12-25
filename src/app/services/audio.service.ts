@@ -55,7 +55,8 @@ export class AudioService {
     return new MediaRecorder(mediaStream.stream);
   }
 
-  //EFFECTS
+  // EFFECTS:
+  // TREMOLO
   private tremoloShaper?: WaveShaperNode;
   private tremoloOsc?: OscillatorNode;
 
@@ -74,6 +75,7 @@ export class AudioService {
   toggleTremolo() {
     if (this.tremoloShaper) {
       this.tremoloShaper.disconnect();
+      this.tremoloOsc?.disconnect();
       delete this.tremoloShaper;
       delete this.tremoloOsc;
     } else {
@@ -89,6 +91,43 @@ export class AudioService {
     return {
       enabled: !!this.tremoloShaper,
       value: this.tremoloOsc?.frequency.value,
+    };
+  }
+
+  // OVERDRIVE:
+  private overdriveShaper?: WaveShaperNode;
+  private overdriveGain?: GainNode;
+
+  private addOverdriveEffect() {
+    this.overdriveShaper = this.audioContext.createWaveShaper();
+    this.overdriveShaper.curve = new Float32Array([-1, 1]);
+
+    this.overdriveGain = this.audioContext.createGain();
+    this.overdriveGain.gain.value = 20;
+    this.overdriveGain.connect(this.overdriveShaper);
+    this.overdriveShaper.connect(this.audioContext.destination);
+    this.masterGainNode.connect(this.overdriveGain);
+  }
+
+  toggleOverdrive() {
+    if (this.overdriveShaper) {
+      this.overdriveShaper.disconnect();
+      this.overdriveGain?.disconnect();
+      delete this.overdriveGain;
+      delete this.overdriveShaper;
+    } else {
+      this.addOverdriveEffect();
+    }
+  }
+
+  setOverdriveGain(value: number | null) {
+    if (this.overdriveGain && value) this.overdriveGain.gain.value = value;
+  }
+
+  get overdrive() {
+    return {
+      enabled: !!this.overdriveGain,
+      value: this.overdriveGain?.gain.value,
     };
   }
 }

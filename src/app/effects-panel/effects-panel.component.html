@@ -1,8 +1,9 @@
 <div class="effects-panel">
+  <!-- TREMOLO -->
   <div>
-    <mat-slide-toggle color="primary" (change)="audioService.toggleTremolo()"
-      >Tremolo</mat-slide-toggle
-    >
+    <mat-slide-toggle color="primary" (change)="audioService.toggleTremolo()">
+      Tremolo
+    </mat-slide-toggle>
 
     <mat-slider
       class="ml-10"
@@ -13,6 +14,25 @@
       [step]="1"
       [value]="audioService.tremolo.value"
       (change)="audioService.setTremoloValue($event.value)"
+    >
+    </mat-slider>
+  </div>
+
+  <!-- OVERDRIVE -->
+  <div>
+    <mat-slide-toggle color="primary" (change)="audioService.toggleOverdrive()">
+      Overdrive
+    </mat-slide-toggle>
+
+    <mat-slider
+      class="ml-10"
+      color="primary"
+      [disabled]="!audioService.overdrive.enabled"
+      [max]="40"
+      [min]="0"
+      [step]="1"
+      [value]="audioService.overdrive.value"
+      (change)="audioService.setOverdriveGain($event.value)"
     >
     </mat-slider>
   </div>
