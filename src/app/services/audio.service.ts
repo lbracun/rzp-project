@@ -54,4 +54,41 @@ export class AudioService {
     this.masterGainNode.connect(mediaStream);
     return new MediaRecorder(mediaStream.stream);
   }
+
+  //EFFECTS
+  private tremoloShaper?: WaveShaperNode;
+  private tremoloOsc?: OscillatorNode;
+
+  private addTremoloEffect() {
+    this.tremoloShaper = this.audioContext.createWaveShaper();
+    this.tremoloShaper.curve = new Float32Array([0, 1]);
+    this.tremoloShaper.connect(this.masterGainNode);
+
+    this.tremoloOsc = this.audioContext.createOscillator();
+    this.tremoloOsc.frequency.value = 5;
+    this.tremoloOsc.type = 'sine';
+    this.tremoloOsc.start();
+    this.tremoloOsc.connect(this.tremoloShaper);
+  }
+
+  toggleTremolo() {
+    if (this.tremoloShaper) {
+      this.tremoloShaper.disconnect();
+      delete this.tremoloShaper;
+      delete this.tremoloOsc;
+    } else {
+      this.addTremoloEffect();
+    }
+  }
+
+  setTremoloValue(value: number | null) {
+    if (this.tremoloOsc && value) this.tremoloOsc.frequency.value = value;
+  }
+
+  get tremolo() {
+    return {
+      enabled: !!this.tremoloShaper,
+      value: this.tremoloOsc?.frequency.value,
+    };
+  }
 }

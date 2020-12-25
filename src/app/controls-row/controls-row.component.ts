@@ -10,6 +10,7 @@ import { SharedDataService } from '../services/shared-data.service';
 })
 export class ControlsRowComponent implements OnInit {
   recording = false;
+  effectsPanel = false;
 
   private recorder: any;
 
@@ -39,5 +40,9 @@ export class ControlsRowComponent implements OnInit {
 
   play() {
     this.sharedDataService.play$.next();
+  }
+
+  toggleEffectsPanel() {
+    this.effectsPanel = !this.effectsPanel;
   }
 }

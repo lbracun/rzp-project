@@ -1,0 +1,19 @@
+<div class="effects-panel">
+  <div>
+    <mat-slide-toggle color="primary" (change)="audioService.toggleTremolo()"
+      >Tremolo</mat-slide-toggle
+    >
+
+    <mat-slider
+      class="ml-10"
+      color="primary"
+      [disabled]="!audioService.tremolo.enabled"
+      [max]="10"
+      [min]="0"
+      [step]="1"
+      [value]="audioService.tremolo.value"
+      (change)="audioService.setTremoloValue($event.value)"
+    >
+    </mat-slider>
+  </div>
+</div>

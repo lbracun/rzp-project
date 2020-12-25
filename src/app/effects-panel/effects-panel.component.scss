@@ -1,0 +1,14 @@
+.effects-panel {
+  position: fixed;
+  width: 350px;
+  right: 0;
+  bottom: 58px;
+  background: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  padding: 30px 20px;
+  border-radius: 9px;
+
+  .ml-10 {
+    margin-left: 10px;
+  }
+}

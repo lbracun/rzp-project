@@ -6,4 +6,14 @@
   <div class="btn" (click)="play()">
     <div class="play-btn"></div>
   </div>
+
+  <div
+    class="btn-text"
+    [class.active]="effectsPanel"
+    (click)="toggleEffectsPanel()"
+  >
+    Effects
+  </div>
 </div>
+
+<app-effects-panel *ngIf="effectsPanel"></app-effects-panel>
