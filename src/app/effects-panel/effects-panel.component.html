@@ -28,11 +28,30 @@
       class="ml-10"
       color="primary"
       [disabled]="!audioService.overdrive.enabled"
-      [max]="40"
+      [max]="20"
       [min]="0"
       [step]="1"
       [value]="audioService.overdrive.value"
       (change)="audioService.setOverdriveGain($event.value)"
+    >
+    </mat-slider>
+  </div>
+
+  <!-- NOISE CONVOLVER -->
+  <div>
+    <mat-slide-toggle color="primary" (change)="audioService.toggleConvolver()">
+      Echo
+    </mat-slide-toggle>
+
+    <mat-slider
+      class="ml-10"
+      color="primary"
+      [disabled]="!audioService.noiseConvolver.enabled"
+      [max]="4"
+      [min]="0"
+      [step]="0.1"
+      [value]="audioService.noiseConvolver.value"
+      (change)="audioService.setConvolver($event.value)"
     >
     </mat-slider>
   </div>

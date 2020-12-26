@@ -88,7 +88,8 @@ export class AudioService {
   }
 
   setTremoloValue(value: number | null) {
-    if (this.tremoloOsc && value) this.tremoloOsc.frequency.value = value;
+    if (this.tremoloOsc && value !== null)
+      this.tremoloOsc.frequency.value = value;
   }
 
   get tremolo() {
@@ -107,7 +108,7 @@ export class AudioService {
     this.overdriveShaper.curve = new Float32Array([-1, 1]);
 
     this.overdriveGain = this.audioContext.createGain();
-    this.overdriveGain.gain.value = 20;
+    this.overdriveGain.gain.value = 10;
     this.masterGainNode.connect(this.overdriveGain);
     this.overdriveGain.connect(this.overdriveShaper);
     this.overdriveShaper.connect(this.finalNode);
@@ -125,13 +126,72 @@ export class AudioService {
   }
 
   setOverdriveGain(value: number | null) {
-    if (this.overdriveGain && value) this.overdriveGain.gain.value = value;
+    if (this.overdriveGain && value !== null)
+      this.overdriveGain.gain.value = value;
   }
 
   get overdrive() {
     return {
       enabled: !!this.overdriveGain,
       value: this.overdriveGain?.gain.value,
+    };
+  }
+
+  // NOISE CONVOLVER:
+  private convolver?: ConvolverNode;
+
+  private setNoiseBuffer(noiseBuffer: AudioBuffer) {
+    if (!this.convolver) return;
+
+    const left = noiseBuffer.getChannelData(0);
+    const right = noiseBuffer.getChannelData(1);
+
+    for (var i = 0; i < noiseBuffer.length; i++) {
+      left[i] = Math.random() * 2 - 1;
+      right[i] = Math.random() * 2 - 1;
+    }
+    this.convolver.buffer = noiseBuffer;
+  }
+
+  private addConvolverEffect() {
+    this.convolver = this.audioContext.createConvolver();
+    this.setNoiseBuffer(
+      this.audioContext.createBuffer(
+        2,
+        0.5 * this.audioContext.sampleRate,
+        this.audioContext.sampleRate
+      )
+    );
+
+    this.masterGainNode.connect(this.convolver);
+    this.convolver.connect(this.finalNode);
+  }
+
+  toggleConvolver() {
+    if (this.convolver) {
+      this.convolver.disconnect();
+      delete this.convolver;
+    } else {
+      this.addConvolverEffect();
+    }
+  }
+
+  setConvolver(value: number | null) {
+    if (value !== null)
+      this.setNoiseBuffer(
+        this.audioContext.createBuffer(
+          2,
+          value * this.audioContext.sampleRate,
+          this.audioContext.sampleRate
+        )
+      );
+  }
+
+  get noiseConvolver() {
+    return {
+      enabled: !!this.convolver,
+      value:
+        (this.convolver?.buffer?.length || 0) / this.audioContext.sampleRate,
     };
   }
 }
